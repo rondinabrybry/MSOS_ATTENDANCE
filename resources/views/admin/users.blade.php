@@ -160,7 +160,7 @@
                             <tbody>
                                 @foreach ($users as $user)
                                     <tr
-                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900">
                                         <td class="w-4 p-4">
                                             <div class="ps-3">
                                                 <div class="text-base font-semibold text-black dark:text-white">
@@ -188,16 +188,20 @@
                                                     class="h-2.5 w-2.5 rounded-full me-2 
                                                             {{ $user->usertype === 'student' ? 'bg-gray-500' : '' }}
                                                             {{ $user->usertype === 'admin' ? 'bg-green-500' : '' }}
-                                                            {{ $user->usertype === 'superadmin' ? 'bg-yellow-500' : '' }}">
+                                                            {{ $user->usertype === 'super' ? 'bg-yellow-500' : '' }}">
                                                 </div>
                                                 {{ $user->usertype }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             <button onclick="openModal({{ $user->id }})"
-                                                class="text-blue-600 dark:hover:text-white">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;|
-                                            <button onclick="openPromoteModal({{ $user->id }})"
-                                                class="text-green-600 dark:hover:text-white ml-2">Promote</button>
+                                                class="text-white bg-blue-600 rounded-lg px-3 py-1 text-xs dark:hover:text-white">Edit</button>
+                                                @if (Auth::user()->usertype === 'super')
+                                                    &nbsp;&nbsp;&nbsp;|
+                                                    <button onclick="openPromoteModal({{ $user->id }})" class="text-white bg-green-500 rounded-lg px-3 py-1 text-xs dark:hover:text-white ml-2">Promote</button>
+                                                    &nbsp;&nbsp;&nbsp;|
+                                                    <button onclick="openDeleteModal({{ $user->id }})" class="text-white bg-red-600 rounded-lg px-3 py-1 text-xs dark:hover:text-white ml-2">Delete</button>
+                                                @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -215,6 +219,33 @@
             </div>
         </div>
     </div>
+
+    @if (Auth::user()->usertype === 'super')
+<!-- Delete Modal -->
+        <div id="deleteModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-center justify-center min-h-screen">
+                <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+
+                <div class="inline-block align-middle bg-white dark:bg-gray-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <form id="DeleteForm" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="mt-3 text-center sm:mt-5">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200 mb-6" id="modal-title">
+                                Delete this user?</h3>
+                        </div>
+                        <div class="flex mt-5 p-2 gap-2 sm:mt-6">
+                            <button type="submit"
+                                class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:text-sm">Delete</button>
+                            <button type="button" onclick="closeDeleteModal()"
+                                class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-600 text-base font-medium text-white hover:bg-gray-700 focus:outline-none sm:text-sm">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endif
+
 
 
     <!-- edit modal -->
@@ -374,7 +405,7 @@
         </div>
     </div>
 
-
+    @if (Auth::user()->usertype === 'super')
     <!-- promote modal -->
     <div id="promoteModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
         role="dialog" aria-modal="true">
@@ -397,7 +428,7 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="admin">Admin</option>
                             <option value="student">Student</option>
-                            <option value="superadmin">SuperAdmin</option>
+                            <option value="super">Super</option>
                         </select>
                     </div>
 
@@ -411,6 +442,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- error student id modal -->
 
@@ -602,6 +634,17 @@
         function openNewStudentModal() {
             document.getElementById('newStudentModal').classList.remove('hidden');
         }
+
+        function openDeleteModal(userId) {
+            const form = document.getElementById('DeleteForm');
+            form.action = `/admin/users/${userId}/delete`; // Dynamically set the form action
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
 
         function closeNewStudentModal() {
             document.getElementById('newStudentModal').classList.add('hidden');

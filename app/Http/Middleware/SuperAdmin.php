@@ -16,7 +16,7 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'superadmin') {
+        if(Auth::user()->usertype != 'super') {
             return redirect('dashboard');
         }
         return $next($request);

@@ -41,7 +41,7 @@ class AttendanceHistoryController extends Controller
 
     public function showAttendanceHistory(Request $request)
     {
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()->isAdminAndSuper()) {
             $attendanceHistory = DB::table('attendance_history')
                 ->when($request->course, function ($query) use ($request) {
                     return $query->where('course', $request->course);

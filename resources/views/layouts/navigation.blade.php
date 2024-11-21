@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if (Auth::check() && Auth::user()->isAdmin())
+                    @if (Auth::check() && Auth::user()->isAdminandSuper())
                         <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                             {{ __('Admin') }}
                         </x-nav-link>
@@ -21,7 +21,7 @@
                         {{ __('Attendance') }}
                     </x-nav-link>
 
-                    @if (Auth::check() && Auth::user()->isAdmin())
+                    @if (Auth::check() && Auth::user()->isAdminandSuper())
                         <x-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
                             {{ __('History') }}
                         </x-nav-link>
@@ -56,7 +56,7 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        @if (Auth::check() && Auth::user()->isAdmin())
+                        @if (Auth::check() && Auth::user()->isSuper())
                         <x-dropdown-link :href="route('import.csv')">
                             {{ __('Import') }}
                         </x-dropdown-link>
@@ -91,7 +91,7 @@
 
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @if (Auth::check() && Auth::user()->isAdmin())
+            @if (Auth::check() && Auth::user()->isAdminandSuper())
                 <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                     {{ __('Admin') }}
                 </x-responsive-nav-link>
@@ -103,7 +103,7 @@
                 {{ __('Attendance') }}
             </x-responsive-nav-link>
 
-            @if (Auth::check() && Auth::user()->isAdmin())
+            @if (Auth::check() && Auth::user()->isAdminandSuper())
                 <x-responsive-nav-link :href="route('admin.history')" :active="request()->routeIs('admin.history')">
                     {{ __('History') }}
                 </x-responsive-nav-link>
@@ -124,7 +124,7 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-                @if (Auth::check() && Auth::user()->isAdmin())
+                @if (Auth::check() && Auth::user()->isSuper())
                 <x-responsive-nav-link :href="route('import.csv')">
                     {{ __('Import') }}
                 </x-responsive-nav-link>

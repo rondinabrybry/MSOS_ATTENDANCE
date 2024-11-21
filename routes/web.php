@@ -93,6 +93,7 @@ Route::middleware(['auth', 'adminOrSuperadmin'])->group(function () {
     Route::put('/admin/users/update', [AllUsers::class, 'update'])->name('users.update');
     Route::put('/admin/users/store', [AllUsers::class, 'store'])->name('users.store');
     Route::get('/admin/users/{id}/promote', [AllUsers::class, 'getUsertype'])->name('users.getUsertype');
+    Route::delete('/admin/users/{id}/delete', [AllUsers::class, 'delete'])->name('users.delete');
     Route::put('/admin/users/promote', [AllUsers::class, 'promote'])->name('users.promote');
     Route::put('/admin/users/attendance', [AllUsers::class, 'manualStore'])->name('users.manualStore');
 

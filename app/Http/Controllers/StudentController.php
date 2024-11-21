@@ -10,7 +10,7 @@ class StudentController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()->isAdminAndSuper()) {
             $students = User::when($request->course != null, function ($q) use ($request) {
                 return $q->where('course', $request->course);
             }, function ($q) {

@@ -1,0 +1,2 @@
+<img src="<?php echo e(asset('storage/logo.png')); ?>" <?php echo e($attributes); ?> alt="MSOS">
+<?php /**PATH C:\xampp\htdocs\LARAVEL\MSOS_ATTENDANCE\resources\views/components/application-logo.blade.php ENDPATH**/ ?>

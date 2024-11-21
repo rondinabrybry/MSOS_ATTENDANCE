@@ -83,7 +83,17 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->usertype === 'admin' || $this->usertype === 'superadmin';
+        return $this->usertype === 'admin';
+    }
+
+    public function isAdminandSuper()
+    {
+        return $this->usertype === 'admin' || $this->usertype === 'super';
+    }
+
+    public function isSuper()
+    {
+        return $this->usertype === 'super';
     }
     
     public function canLogout()

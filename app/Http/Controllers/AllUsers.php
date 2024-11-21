@@ -14,7 +14,7 @@ class AllUsers extends Controller
     {
         $query = User::query();
 
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()->isAdminandSuper()) {
             if ($request->student_id != null) {
                 $query->where('student_id', $request->student_id)->orWhere('rf_id', $request->student_id)->first();
             }
@@ -79,6 +79,15 @@ class AllUsers extends Controller
 
         return redirect()->route('admin.users')->with('success', 'User promoted successfully');
     }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+    
+        return redirect()->route('admin.users')->with('success', 'User deleted successfully');
+    }
+    
 
     public function store(UpdateUserRequest $request)
     {
