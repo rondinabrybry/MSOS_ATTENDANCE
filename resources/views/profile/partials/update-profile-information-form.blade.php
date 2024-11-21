@@ -42,7 +42,7 @@
 
             <div>
                 <x-input-label for="student_id" :value="__('Student ID')" />
-                <x-text-input id="student_id" name="student_id" type="number" class="mt-1 block w-full" :value="old('student_id', $user->student_id)" readonly />
+                <x-text-input id="student_id" name="student_id" type="number" class="mt-1 block w-full" :value="old('student_id', $user->student_id)"/>
                 <x-input-error class="mt-2" :messages="$errors->get('student_id')" />
             </div>
 
