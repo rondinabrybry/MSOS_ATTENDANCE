@@ -95,9 +95,9 @@
                     if (is_null(Auth::user()->time_preference)) {
                         $incompleteFields[] = 'Class Schedule (Day/Night)';
                     }
-                    // if (is_null(Auth::user()->student_id)) {
-                    //     $incompleteFields[] = 'Student ID';
-                    // }
+                    if (is_null(Auth::user()->student_id)) {
+                        $incompleteFields[] = 'Student ID';
+                    }
                 @endphp
                 @if (count($incompleteFields) > 0)
                     <div id="incompleteProfileModal"
