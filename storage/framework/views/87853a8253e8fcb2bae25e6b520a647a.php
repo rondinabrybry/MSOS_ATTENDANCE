@@ -16,27 +16,19 @@
      <?php $__env->endSlot(); ?>
     
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Card Container -->
-            <div class="bg-gray-800 text-white shadow-md rounded-lg p-8 flex flex-row sm:flex-row items-center sm:items-start">
-                <!-- Profile Image -->
-                <div class="flex-shrink-0 sm:mb-0 sm:mr-8">
-                    <img src="<?php echo e(asset('storage/' . Auth::user()->profile_image)); ?>" 
-                         alt="<?php echo e(Auth::user()->name); ?>" 
-                         class="rounded-lg object-cover shadow-md" style="width: 300px;">
-                </div>
 
-                <!-- User Details -->
-                <div style="line-height: 1.2;">
-                    <h1 class="font-bold ml-2" style="font-size:70px;"><?php echo e(Auth::user()->name); ?></h1>
-                    <p class="ml-2" style="font-size:50px;">
-                        <?php echo e(Auth::user()->course); ?> <?php echo e(Auth::user()->section); ?><?php echo e(Auth::user()->section1); ?> <?php echo e(Auth::user()->time_preference); ?>
-
-                    </p>
-                    <p class="ml-2" style="font-size:20px;"><?php echo e(Auth::user()->email); ?></p>
-                    <p class="ml-2" style="font-size:100px;"><?php echo e(Auth::user()->student_id); ?></p>
-                </div>
+        <div class="max-w-7xl p-12 mx-auto">
+        <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <img class="object-cover w-1/2 rounded-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="<?php echo e(asset('storage/' . Auth::user()->profile_image)); ?>" alt="">
+            <div class="flex flex-col justify-between p-4 leading-normal">
+                <h1 class="mb-2 text-6xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo e(Auth::user()->name); ?></h1>
+                <p class="mb-3 text-5xl font-normal text-gray-700 dark:text-gray-400"><?php echo e(Auth::user()->course); ?> <?php echo e(Auth::user()->section); ?><?php echo e(Auth::user()->section1); ?> <?php echo e(Auth::user()->time_preference); ?></p>
+                <p class="mb-3 text-2xl font-normal text-gray-700 dark:text-gray-400"><?php echo e(Auth::user()->email); ?></p>
+                <p class="mb-3 text-7xl font-normal text-gray-700 dark:text-gray-400"><?php echo e(Auth::user()->student_id); ?></p>
             </div>
+        </div>
+
+
 
             <!-- Button Section -->
             <div class="mt-8">
@@ -70,7 +62,7 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
-                
+        </div> 
 
                 <?php
                     $incompleteFields = [];
@@ -119,7 +111,7 @@
                     </script>
                 <?php endif; ?>
             </div>
-        </div>
+        </div> 
     </div>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
